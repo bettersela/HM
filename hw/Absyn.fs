@@ -12,37 +12,49 @@ type typ =
   | TypC                             (* Type char                   *)
   | TypA of typ * int option         (* Array type                  *)
   | TypP of typ                      (* Pointer type                *)
-                                                                   
-and expr =                                                         
+
+and expr =
   | Access of access                 (* x    or  *p    or  a[e]     *)
   | Assign of access * expr          (* x=e  or  *p=e  or  a[e]=e   *)
+  | Asspp of access                  (* ++x add*)                 
+  | Assdd of access                  (* --x add*)                          
+  | Assad of access * expr           (* x+=e add*)                         
+  | Assmu of access * expr           (* x*=e *)
+  | Assdi of access * expr           (* x/=e *)
+  | Asssu of access * expr           (* x-=e *)
+  | Assmo of access * expr           (* x%=e *)
   | Addr of access                   (* &x   or  &*p   or  &a[e]    *)
   | CstI of int                      (* Constant                    *)
   | Prim1 of string * expr           (* Unary primitive operator    *)
   | Prim2 of string * expr * expr    (* Binary primitive operator   *)
+  | Prim3 of (string * string) * expr * expr * expr        (*  add  *)         
   | Andalso of expr * expr           (* Sequential and              *)
   | Orelse of expr * expr            (* Sequential or               *)
   | Call of string * expr list       (* Function call f(...)        *)
-                                                                   
-and access =                                                       
-  | AccVar of string                 (* Variable access        x    *) 
+  | Comma of expr * expr             (* comma expression         add*)
+and access =
+  | AccVar of string                 (* Variable access        x    *)
   | AccDeref of expr                 (* Pointer dereferencing  *p   *)
   | AccIndex of access * expr        (* Array indexing         a[e] *)
-                                                                   
-and stmt =                                                         
+
+and stmt =
   | If of expr * stmt * stmt         (* Conditional                 *)
+  | DoWhile of expr * stmt
+  | For of expr * expr * expr * stmt                   (* for    add*)
+  | ForIn of access * access                           (* for in add*)
+  | Switch of expr * (int * stmt) list                 (* switch add*)
   | While of expr * stmt             (* While loop                  *)
   | Expr of expr                     (* Expression statement   e;   *)
   | Return of expr option            (* Return from method          *)
   | Block of stmtordec list          (* Block: grouping and scope   *)
-                                                                   
-and stmtordec =                                                    
+
+and stmtordec =
   | Dec of typ * string              (* Local variable declaration  *)
   | Stmt of stmt                     (* A statement                 *)
 
-and topdec = 
+and topdec =
   | Fundec of typ option * string * (typ * string) list * stmt
   | Vardec of typ * string
 
-and program = 
+and program =
   | Prog of topdec list

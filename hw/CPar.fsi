@@ -8,10 +8,19 @@ type token =
   | RBRACE
   | LBRACK
   | RBRACK
+  | COLON
+  | QUES
   | SEMI
   | COMMA
   | ASSIGN
   | AMP
+  | ASSAD
+  | ASSSU
+  | ASSMU
+  | ASSDI
+  | ASSMO
+  | ASSPP
+  | ASSDD
   | NOT
   | SEQOR
   | SEQAND
@@ -26,8 +35,12 @@ type token =
   | TIMES
   | DIV
   | MOD
+  | BREAK
+  | CASE
   | CHAR
+  | DO
   | ELSE
+  | FOR
   | IF
   | INT
   | NULL
@@ -36,6 +49,9 @@ type token =
   | RETURN
   | VOID
   | WHILE
+  | SWITCH
+  | IN
+  | FORIN
   | CSTSTRING of (string)
   | NAME of (string)
   | CSTINT of (int)
@@ -48,10 +64,19 @@ type tokenId =
     | TOKEN_RBRACE
     | TOKEN_LBRACK
     | TOKEN_RBRACK
+    | TOKEN_COLON
+    | TOKEN_QUES
     | TOKEN_SEMI
     | TOKEN_COMMA
     | TOKEN_ASSIGN
     | TOKEN_AMP
+    | TOKEN_ASSAD
+    | TOKEN_ASSSU
+    | TOKEN_ASSMU
+    | TOKEN_ASSDI
+    | TOKEN_ASSMO
+    | TOKEN_ASSPP
+    | TOKEN_ASSDD
     | TOKEN_NOT
     | TOKEN_SEQOR
     | TOKEN_SEQAND
@@ -66,8 +91,12 @@ type tokenId =
     | TOKEN_TIMES
     | TOKEN_DIV
     | TOKEN_MOD
+    | TOKEN_BREAK
+    | TOKEN_CASE
     | TOKEN_CHAR
+    | TOKEN_DO
     | TOKEN_ELSE
+    | TOKEN_FOR
     | TOKEN_IF
     | TOKEN_INT
     | TOKEN_NULL
@@ -76,6 +105,9 @@ type tokenId =
     | TOKEN_RETURN
     | TOKEN_VOID
     | TOKEN_WHILE
+    | TOKEN_SWITCH
+    | TOKEN_IN
+    | TOKEN_FORIN
     | TOKEN_CSTSTRING
     | TOKEN_NAME
     | TOKEN_CSTINT
@@ -96,6 +128,7 @@ type nonTerminalId =
     | NONTERM_StmtOrDecSeq
     | NONTERM_Stmt
     | NONTERM_StmtM
+    | NONTERM_SwitchC
     | NONTERM_StmtU
     | NONTERM_Expr
     | NONTERM_ExprNotAccess
