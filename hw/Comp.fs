@@ -146,12 +146,7 @@ let rec cStmt stmt (varEnv : varEnv) (funEnv : funEnv) : instr list =
       @ [GOTO labtest; Label labbegin] @ cStmt body varEnv funEnv
       @ cExpr estop varEnv funEnv @ [INCSP -1]
       @ [Label labtest] @ cExpr e varEnv funEnv @ [IFNZRO labbegin]
-      (*
-    | ForIn(name1,name2) ->
-      let lab1 = newLabel();
-      let lab2 = newLabel();
-      cExpr name1 varEnv funEnv @[INSCP - 1]
-      *)
+
     | DoWhile(e, body) ->                                      (*add*)
       let labbegin = newLabel()
       let labtest  = newLabel()
